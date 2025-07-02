@@ -14,10 +14,14 @@ function LandingPage() {
             Badin By Dah
           </h1>
           {/* Desktop Nav */}
-          <nav className="space-x-6 hidden md:flex text-lg xl:text-xl">
-            <a href="#products">บดิน</a>
+          <nav className="space-x-6 hidden md:flex">
+            <a href="#products" className="text-2xl">
+              บดิน
+            </a>
             {/* <a href="#">สั่งขนม</a> */}
-            <a href="#contact">ติดต่อ</a>
+            <a href="#contact" className="text-2xl">
+              ติดต่อ
+            </a>
           </nav>
           {/* Hamburger Icon */}
           <button
@@ -44,7 +48,7 @@ function LandingPage() {
         </div>
         {/* Mobile Nav */}
         {menuOpen && (
-          <nav className="md:hidden bg-white px-4 pb-4 pt-2 shadow space-y-2 flex flex-col transition-all duration-600 text-xl">
+          <nav className="md:hidden bg-white px-4 pb-4 pt-2 shadow space-y-2 flex flex-col transition-all duration-600 text-2xl">
             <a href="#products" onClick={() => setMenuOpen(false)}>
               บดิน
             </a>
