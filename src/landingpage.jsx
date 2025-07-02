@@ -6,12 +6,12 @@ function LandingPage() {
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
   return (
-    <div className="min-w-screen bg-pink-50 text-gray-800">
+    <div className="w-full h-full bg-pink-50 text-gray-800">
       {/* Header */}
       <header className="bg-white shadow-md sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
           <h1 className="text-3xl font-bold text-pink-600 uppercase md:text-6xl">
-            BadinByDah
+            Badin By Dah
           </h1>
           {/* Desktop Nav */}
           <nav className="space-x-6 hidden md:flex text-lg xl:text-xl">
@@ -44,7 +44,7 @@ function LandingPage() {
         </div>
         {/* Mobile Nav */}
         {menuOpen && (
-          <nav className="md:hidden bg-white px-4 pb-4 pt-2 shadow space-y-2 flex flex-col transition-all duration-600 text-">
+          <nav className="md:hidden bg-white px-4 pb-4 pt-2 shadow space-y-2 flex flex-col transition-all duration-600 text-xl">
             <a href="#products" onClick={() => setMenuOpen(false)}>
               บดิน
             </a>
@@ -61,7 +61,7 @@ function LandingPage() {
       {/* Hero Section */}
       <section className="bg-pink-100 py-20 text-center">
         <h2 className="text-4xl font-bold mb-4">พายบดิน บายดะห์</h2>
-        <p className="text-lg mb-6">
+        <p className="text-lg">
           ขนมอบ รูปเรือ หรือลูกค้าส่วนใหญ่จะเรียกว่า "พายเรือ"
         </p>
         <p className="text-lg mb-6">
@@ -143,13 +143,13 @@ function LandingPage() {
                 className="w-full h-64 object-cover rounded-lg mb-4"
               />
               <p
-                className="text-3xl font-semibold"
+                className="text-xl font-semibold md:text-3xl"
                 style={{ color: item.nameColor || "black" }}
               >
                 {item.name}
               </p>
               <p
-                className="text-2xl font-bold "
+                className="text-xl font-bold md:text-2xl"
                 style={{ color: item.priceColor || "#e60076" }}
               >
                 {item.price}
@@ -191,8 +191,8 @@ function LandingPage() {
           </div>
           {/* Details */}
           <div className="flex justify-center items-center px-4">
-            <div className="text-xl flex flex-col items-start mt-8 space-y-4">
-              <p className="text-gray-700 text-start">
+            <div className="text-xl flex flex-col items-start mt-8 space-y-4 text-start">
+              <p className="text-gray-700">
                 พิกัดร้าน:{" "}
                 <a
                   className="text-pink-600 underline"
