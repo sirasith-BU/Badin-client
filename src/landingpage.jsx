@@ -3,8 +3,12 @@ import "./landingpage.css";
 
 function LandingPage() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const toggleMenu = () => setMenuOpen(!menuOpen);
+  const [cart, setCart] = useState([]);
 
+  const toggleMenu = () => setMenuOpen(!menuOpen);
+  const handleAddToCart = (item) => {
+    setCart((prev) => [...prev, item]);
+  };
   return (
     <div className="w-full h-full bg-pink-50 text-gray-800">
       {/* Header */}
@@ -18,10 +22,28 @@ function LandingPage() {
             <a href="#products" className="text-2xl">
               บดิน
             </a>
-            {/* <a href="#">สั่งขนม</a> */}
             <a href="#contact" className="text-2xl">
               ติดต่อ
             </a>
+            {/* 3. Cart icon with count */}
+            {/* <span className="relative ml-4">
+              <svg
+                className="w-8 h-8 inline"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <circle cx="9" cy="21" r="1" />
+                <circle cx="20" cy="21" r="1" />
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+              </svg>
+              {cart.length > 0 && (
+                <span className="absolute -top-2 -right-2 bg-pink-500 text-white rounded-full px-2 text-xs">
+                  {cart.length}
+                </span>
+              )}
+            </span> */}
           </nav>
           {/* Hamburger Icon */}
           <button
@@ -157,9 +179,13 @@ function LandingPage() {
                 {item.price}
               </p>
               <div className="flex flex-col items-center w-full md:flex-row justify-between">
-                <button className="text-xl mt-4 bg-pink-500 text-white px-4 py-2 rounded-full shadow hover:bg-pink-600 transition w-full md:w-auto">
+                {/* 2. Add to cart button */}
+                {/* <button
+                  className="text-xl mt-4 bg-pink-500 text-white px-4 py-2 rounded-full shadow hover:bg-pink-600 transition w-full md:w-auto"
+                  onClick={() => handleAddToCart(item)}
+                >
                   ใส่ตะกร้า
-                </button>
+                </button> */}
               </div>
             </div>
           ))}
