@@ -60,17 +60,17 @@ function LandingPage() {
 
       {/* Hero Section */}
       <section className="bg-pink-100 py-20 text-center">
-        <h2 className="text-4xl font-bold mb-4">พายบดิน บายดะห์</h2>
-        <p className="text-lg">
-          ขนมอบ รูปเรือ หรือลูกค้าส่วนใหญ่จะเรียกว่า "พายเรือ"
-        </p>
-        <p className="text-lg mb-6">
-          รสชาติคล้ายบั้ตเตอร์เค้ก จะมีหลากหลายรสชาติ เช่น รสนม โกโก้ กาแฟ
-          ชาเขียว
-        </p>
+        <h2 className="text-5xl font-bold mb-4">พายบดิน บายดะห์</h2>
+        <div className="text-xl mx-4 md:mx-0">
+          <p>ขนมอบ รูปเรือ หรือลูกค้าส่วนใหญ่จะเรียกว่า "พายเรือ"⛵</p>
+          <p className="mb-6">
+            รสชาติคล้ายบั้ตเตอร์เค้ก🍰 จะมีหลากหลายรสชาติ เช่น รสนม🥛 กาแฟ☕
+            โกโก้🍫 ชาเขียว🍵
+          </p>
+        </div>
         <a
           href="#products"
-          className="inline-block bg-pink-500 text-white px-6 py-3 rounded-full shadow hover:bg-pink-600 transition"
+          className="text-xl inline-block bg-pink-500 text-white px-6 py-3 rounded-full shadow hover:bg-pink-600 transition"
         >
           ดูสินค้าทั้งหมด
         </a>
@@ -78,10 +78,8 @@ function LandingPage() {
 
       {/* Product Preview */}
       <section id="products" className="py-16 max-w-6xl mx-auto px-4">
-        <h3 className="text-3xl font-bold text-center mb-10 title">
-          บดินทั้งหมด
-        </h3>
-        <div className="grid gap-8 grid-cols-2 md:grid-cols-3">
+        <h3 className="text-3xl font-bold text-center mb-10 title">บดิน</h3>
+        <div className="grid gap-3 grid-cols-2 md:grid-cols-3 md:gap-8">
           {[
             {
               name: "บดิน ถาดใหญ่",
@@ -100,7 +98,7 @@ function LandingPage() {
             },
             { name: "บดิน ถ้วย", image: "pictures/กลม.jpg", price: "20 บาท" },
             {
-              name: "พายเรือ รสนม🥛",
+              name: "พายเรือ รสนม",
               image: "pictures/เรือนม.jpg",
               price: "20 บาท",
               bgcolor: "#fffaf6",
@@ -108,7 +106,7 @@ function LandingPage() {
               priceColor: "#e60076",
             },
             {
-              name: "พายเรือ รสกาแฟ☕",
+              name: "พายเรือ รสกาแฟ",
               image: "pictures/เรือกาแฟ.jpg",
               price: "20 บาท",
               bgcolor: "#523a28",
@@ -116,7 +114,7 @@ function LandingPage() {
               priceColor: "#e60076",
             },
             {
-              name: "พายเรือ รสโกโก้🍫",
+              name: "พายเรือ รสโกโก้",
               image: "pictures/เรือโกโก้.jpg",
               price: "20 บาท",
               bgcolor: "#a47551",
@@ -124,7 +122,7 @@ function LandingPage() {
               priceColor: "black",
             },
             {
-              name: "พายเรือ รสชาเขียว🍵",
+              name: "พายเรือ รสชาเขียว",
               image: "pictures/เรือชาเขียว.jpg",
               price: "20 บาท",
               bgcolor: "#8ba888",
@@ -140,7 +138,7 @@ function LandingPage() {
               <img
                 src={item.image}
                 alt={item.name}
-                className="w-full h-64 object-cover rounded-lg mb-4"
+                className="w-full h-48 object-cover rounded-lg mb-4"
               />
               <p
                 className="text-xl font-semibold md:text-3xl"
@@ -154,6 +152,11 @@ function LandingPage() {
               >
                 {item.price}
               </p>
+              <div className="flex flex-col items-center w-full md:flex-row justify-between">
+                <button className="text-xl mt-4 bg-pink-500 text-white px-4 py-2 rounded-full shadow hover:bg-pink-600 transition w-full md:w-auto">
+                  ใส่ตะกร้า
+                </button>
+              </div>
             </div>
           ))}
         </div>
@@ -214,7 +217,7 @@ function LandingPage() {
                 </a>
               </p>
               <p className="text-gray-700">
-                โปรไฟล์เฟสบุ๊ค(ติดต่อโดยตรง):{" "}
+                เฟสบุ๊ค(ติดต่อโดยตรง):{" "}
                 <a
                   className="text-pink-600 underline"
                   href="https://www.facebook.com/share/14KnZozyZk6/"
