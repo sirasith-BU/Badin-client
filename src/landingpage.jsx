@@ -105,7 +105,7 @@ function LandingPage() {
       {/* Product Preview */}
       <section id="products" className="py-16 max-w-6xl mx-auto px-4">
         <h3 className="text-3xl font-bold text-center mb-10 title">บดิน</h3>
-        <div className="grid gap-3 grid-cols-2 md:grid-cols-3 md:gap-8">
+        <div className="grid gap-2 grid-cols-2 md:grid-cols-3 md:gap-4">
           {[
             {
               name: "บดิน ถาดใหญ่",
@@ -164,7 +164,7 @@ function LandingPage() {
               <img
                 src={item.image}
                 alt={item.name}
-                className="w-full h-48 object-cover rounded-lg mb-4"
+                className="w-full h-48 object-cover rounded-lg mb-4 md:h-80"
               />
               <p
                 className="text-xl font-semibold md:text-3xl"
