@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // เปลี่ยนตรงนี้
+import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
+import SendRoundedIcon from "@mui/icons-material/SendRounded";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
 function CartPageComponent({ cart, setCart }) {
   const [customerName, setCustomerName] = useState("ไม่มีชื่อ");
@@ -7,6 +11,7 @@ function CartPageComponent({ cart, setCart }) {
   const [address, setAddress] = useState("ไม่มีที่อยู่");
   const [paymentMethod, setPaymentMethod] = useState("ไม่มีการชำระเงิน");
   const [contactNumber, setContactNumber] = useState("ไม่มีเบอร์โทร");
+  const [showAlert, setShowAlert] = useState(false);
 
   const navigate = useNavigate(); // เพิ่มตรงนี้
 
@@ -46,6 +51,23 @@ function CartPageComponent({ cart, setCart }) {
   return (
     <div className="max-w-5xl mx-auto py-10 px-4">
       <h2 className="text-5xl font-bold mb-6">ตะกร้าสินค้า</h2>
+      {/* Snackbar Alert */}
+      <Snackbar
+        open={showAlert}
+        autoHideDuration={3000}
+        onClose={() => setShowAlert(false)}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <MuiAlert
+          elevation={6}
+          variant="filled"
+          severity="success"
+          onClose={() => setShowAlert(false)}
+          sx={{ width: "100%" }}
+        >
+          สั่งซื้อสำเร็จ! ขอบคุณที่ใช้บริการ.
+        </MuiAlert>
+      </Snackbar>
       <div className="flex flex-col md:flex-row gap-8">
         {/* Cart Section */}
         <div className="flex-1">
@@ -153,7 +175,9 @@ function CartPageComponent({ cart, setCart }) {
                 }}
               />
             </div>
-            <button
+            <Button
+              variant="contained"
+              startIcon={<SendRoundedIcon />}
               type="submit"
               className="w-full bg-pink-500 text-white py-2 rounded font-bold mt-4"
               onClick={(event) => {
@@ -167,14 +191,17 @@ function CartPageComponent({ cart, setCart }) {
                   contactNumber,
                   cart,
                 });
-                alert("สั่งซื้อสำเร็จ! ขอบคุณที่ใช้บริการ");
                 setCart([]);
+                setShowAlert(true);
 
-                navigate("/");
+                setTimeout(() => {
+                  setShowAlert(false);
+                  navigate("/");
+                }, 2000);
               }}
             >
               ยืนยันการสั่งซื้อ
-            </button>
+            </Button>
           </form>
         </div>
       </div>
