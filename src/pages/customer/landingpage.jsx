@@ -1,22 +1,35 @@
 import { useState } from "react";
 import "./landingpage.css";
+import { Link } from "react-router-dom";
 
-function LandingPage() {
+function LandingPageComponent({ cart, setCart }) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [cart, setCart] = useState([]);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const handleAddToCart = (item) => {
-    setCart((prev) => [...prev, item]);
+    setCart((prev) => {
+      const idx = prev.findIndex((i) => i.name === item.name);
+      if (idx !== -1) {
+        // Increase count
+        return prev.map((i, j) =>
+          j === idx ? { ...i, count: (i.count || 1) + 1 } : i
+        );
+      }
+      // Add new item with count 1
+      return [...prev, { ...item, count: 1 }];
+    });
   };
   return (
     <div className="w-full h-full bg-pink-50 text-gray-800">
       {/* Header */}
       <header className="bg-white shadow-md sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-3xl font-bold text-pink-600 uppercase md:text-6xl">
+          <a
+            href="/"
+            className="text-3xl font-bold text-pink-600 uppercase md:text-6xl"
+          >
             Badin By Dah
-          </h1>
+          </a>
           {/* Desktop Nav */}
           <nav className="space-x-6 hidden md:flex">
             <a href="#products" className="text-2xl">
@@ -26,7 +39,8 @@ function LandingPage() {
               ติดต่อ
             </a>
             {/* 3. Cart icon with count */}
-            {/* <span className="relative ml-4">
+            {/* Cart icon with count */}
+            <Link to="/cart" className="relative ml-4">
               <svg
                 className="w-8 h-8 inline"
                 fill="none"
@@ -43,32 +57,53 @@ function LandingPage() {
                   {cart.length}
                 </span>
               )}
-            </span> */}
+            </Link>
           </nav>
-          {/* Hamburger Icon */}
-          <button
-            className="md:hidden flex flex-col justify-center items-center w-8 h-8"
-            onClick={toggleMenu}
-            aria-label="Open menu"
-          >
-            <span
-              className={`block h-1 w-6 bg-pink-600 rounded transition-all duration-300 ${
-                menuOpen ? "rotate-45 translate-y-2" : ""
-              }`}
-            ></span>
-            <span
-              className={`block h-1 w-6 bg-pink-600 rounded my-1 transition-all duration-300 ${
-                menuOpen ? "opacity-0" : ""
-              }`}
-            ></span>
-            <span
-              className={`block h-1 w-6 bg-pink-600 rounded transition-all duration-300 ${
-                menuOpen ? "-rotate-45 -translate-y-2" : ""
-              }`}
-            ></span>
-          </button>
+          {/* Mobile Nav */}
+          <div className="flex gap-2 md:hidden">
+            <Link to="/cart" className="relative ml-4">
+              <svg
+                className="w-8 h-8 inline"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <circle cx="9" cy="21" r="1" />
+                <circle cx="20" cy="21" r="1" />
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+              </svg>
+              {cart.length > 0 && (
+                <span className="absolute -top-2 -right-2 bg-pink-500 text-white rounded-full px-2 text-xs">
+                  {cart.length}
+                </span>
+              )}
+            </Link>
+            {/* Hamburger Icon */}
+            <button
+              className="flex flex-col justify-center items-center w-8 h-8"
+              onClick={toggleMenu}
+              aria-label="Open menu"
+            >
+              <span
+                className={`block h-1 w-6 bg-pink-600 rounded transition-all duration-300 ${
+                  menuOpen ? "rotate-45 translate-y-2" : ""
+                }`}
+              ></span>
+              <span
+                className={`block h-1 w-6 bg-pink-600 rounded my-1 transition-all duration-300 ${
+                  menuOpen ? "opacity-0" : ""
+                }`}
+              ></span>
+              <span
+                className={`block h-1 w-6 bg-pink-600 rounded transition-all duration-300 ${
+                  menuOpen ? "-rotate-45 -translate-y-2" : ""
+                }`}
+              ></span>
+            </button>
+          </div>
         </div>
-        {/* Mobile Nav */}
+        {/* Mobile Menu */}
         {menuOpen && (
           <nav className="md:hidden bg-white px-4 pb-4 pt-2 shadow space-y-2 flex flex-col transition-all duration-600 text-2xl">
             <a href="#products" onClick={() => setMenuOpen(false)}>
@@ -180,12 +215,12 @@ function LandingPage() {
               </p>
               <div className="flex flex-col items-center w-full md:flex-row justify-between">
                 {/* 2. Add to cart button */}
-                {/* <button
+                <button
                   className="text-xl mt-4 bg-pink-500 text-white px-4 py-2 rounded-full shadow hover:bg-pink-600 transition w-full md:w-auto"
                   onClick={() => handleAddToCart(item)}
                 >
                   ใส่ตะกร้า
-                </button> */}
+                </button>
               </div>
             </div>
           ))}
@@ -281,4 +316,4 @@ function LandingPage() {
   );
 }
 
-export default LandingPage;
+export default LandingPageComponent;
