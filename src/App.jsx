@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import LandingPageComponent from "./pages/customer/landingpage";
 import CartPageComponent from "./pages/customer/cartpage";
-import TestComponent from "./pages/customer/test";
+import TestAPIComponent from "./pages/customer/test";
+import LoginAdminComponent from "./pages/admin/login";
+import DashboardAdminComponent from "./pages/admin/dashboard";
 
 function App() {
   const [cart, setCart] = useState(() => {
@@ -23,7 +25,9 @@ function App() {
         path="/cart"
         element={<CartPageComponent cart={cart} setCart={setCart} />}
       />
-      <Route path="/test" element={<TestComponent />} />
+      <Route path="/test" element={<TestAPIComponent />} />
+      <Route path="/admin/login" element={<LoginAdminComponent />} />
+      <Route path="/admin" element={<DashboardAdminComponent />} />
     </Routes>
   );
 }

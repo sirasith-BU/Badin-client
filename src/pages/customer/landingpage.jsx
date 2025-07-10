@@ -26,9 +26,9 @@ function LandingPageComponent({ cart, setCart }) {
         <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
           <a
             href="/"
-            className="text-3xl font-bold text-pink-600 uppercase md:text-6xl"
+            className="text-3xl font-bold text-pink-600 md:text-6xl"
           >
-            Badin By Dah
+            Pie Badin ByDah
           </a>
           {/* Desktop Nav */}
           <nav className="space-x-6 hidden md:flex">
