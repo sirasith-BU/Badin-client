@@ -1,4 +1,4 @@
-import { useState, useEffect, use } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Button,
@@ -10,10 +10,7 @@ import {
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
-import {
-  createOrders,
-  getAllProducts,
-} from "../../../services/BadinService.js";
+import { createOrders } from "../../../services/BadinService.js";
 
 function CartPageComponent({ cart, setCart }) {
   // Form states
@@ -35,12 +32,6 @@ function CartPageComponent({ cart, setCart }) {
   const [showCartEmpty, setShowCartEmpty] = useState(false);
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const productData = getAllProducts().then((data) => {
-      console.log("Product Data:", data);
-    });
-  }, []);
 
   const addOrders = async () => {
     try {
@@ -81,8 +72,9 @@ function CartPageComponent({ cart, setCart }) {
           paymentMethod: paymentMethod,
           contactNumber: contactNumber,
           products: cart.map((item) => ({
-            productName: item.name,
-            quantity: item.count || 0,
+            product_id: item.id_products,
+            quantity: item.quantity || 0,
+            unit_price: item.price || 0,
           })),
         });
         if (response.status === 201) {
@@ -107,22 +99,22 @@ function CartPageComponent({ cart, setCart }) {
     }
   };
 
-  // Increase item count
+  // Increase item quantity
   const handleIncrease = (idx) => {
     setCart(
       cart.map((item, i) =>
-        i === idx ? { ...item, count: (item.count || 1) + 1 } : item
+        i === idx ? { ...item, quantity: (item.quantity || 1) + 1 } : item
       )
     );
   };
 
-  // Decrease item count
+  // Decrease item quantity
   const handleDecrease = (idx) => {
     setCart(
       cart.flatMap((item, i) => {
         if (i !== idx) return item;
-        const newCount = (item.count || 1) - 1;
-        return newCount > 0 ? { ...item, count: newCount } : [];
+        const newquantity = (item.quantity || 1) - 1;
+        return newquantity > 0 ? { ...item, quantity: newquantity } : [];
       })
     );
   };
@@ -136,7 +128,7 @@ function CartPageComponent({ cart, setCart }) {
   const getTotal = () => {
     return cart.reduce((sum, item) => {
       const price = parseFloat(item.price);
-      return sum + (isNaN(price) ? 0 : price * (item.count || 1));
+      return sum + (isNaN(price) ? 0 : price * (item.quantity || 1));
     }, 0);
   };
 
@@ -207,7 +199,9 @@ function CartPageComponent({ cart, setCart }) {
                     key={idx}
                     className="py-4 flex justify-between items-center md:text-2xl"
                   >
-                    <span>{item.name}</span>
+                    <span>
+                      {item.name} {item.size} {item.taste}
+                    </span>
                     <div className="flex items-center gap-2">
                       <button
                         className="px-2 py-1 bg-pink-200 rounded"
@@ -215,7 +209,7 @@ function CartPageComponent({ cart, setCart }) {
                       >
                         -
                       </button>
-                      <span>{item.count || 1}</span>
+                      <span>{item.quantity || 1}</span>
                       <button
                         className="px-2 py-1 bg-pink-200 rounded"
                         onClick={() => handleIncrease(idx)}
@@ -224,7 +218,7 @@ function CartPageComponent({ cart, setCart }) {
                       </button>
                     </div>
                     <span className="text-pink-600">
-                      {parseFloat(item.price) * (item.count || 1)} บาท
+                      {parseFloat(item.price) * (item.quantity || 1)} บาท
                     </span>
                     <button
                       className="ml-2 px-2 py-1 bg-red-400 text-white rounded"

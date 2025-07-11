@@ -1,22 +1,124 @@
-import { useState } from "react";
+import { useState, useEffect, use } from "react";
 import "./landingpage.css";
 import { Link } from "react-router-dom";
+import { getAllProducts } from "../../../services/BadinService";
 
 function LandingPageComponent({ cart, setCart }) {
+  const InitBadins = [
+    {
+      name: "บดินถาด",
+      size: "ใหญ่",
+      image: "pictures/เหลี่ยมใหญ่.jpg",
+      price: "180",
+    },
+    {
+      name: "บดินถาด",
+      size: "กลาง",
+      image: "pictures/เหลี่ยมกลาง.jpg",
+      price: "60",
+    },
+    {
+      name: "บดินถาด",
+      size: "เล็ก",
+      image: "pictures/เหลี่ยมเล็ก.jpg",
+      price: "40",
+    },
+    { name: "บดิน ถ้วย", image: "pictures/กลม.jpg", price: "20" },
+    {
+      name: "พายเรือ รสนม",
+      image: "pictures/เรือนม.jpg",
+      price: "20",
+      bgcolor: "#fffaf6",
+      nameColor: "black",
+      priceColor: "#e60076",
+    },
+    {
+      name: "พายเรือ รสกาแฟ",
+      image: "pictures/เรือกาแฟ.jpg",
+      price: "20",
+      bgcolor: "#523a28",
+      nameColor: "white",
+      priceColor: "#e60076",
+    },
+    {
+      name: "พายเรือ รสโกโก้",
+      image: "pictures/เรือโกโก้.jpg",
+      price: "20",
+      bgcolor: "#a47551",
+      nameColor: "white",
+      priceColor: "black",
+    },
+    {
+      name: "พายเรือ รสชาเขียว",
+      image: "pictures/เรือชาเขียว.jpg",
+      price: "20",
+      bgcolor: "#8ba888",
+      nameColor: "white",
+      priceColor: "black",
+    },
+  ];
   const [menuOpen, setMenuOpen] = useState(false);
+  const [Badins, setBadins] = useState([]);
+
+  useEffect(() => {
+    getAllProducts().then((data) => {
+      const products = data || InitBadins;
+
+      const updatedBadins = products.map((item) => {
+        if (item.taste === "นม") {
+          return {
+            ...item,
+            bgcolor: "#fffaf6",
+            nameColor: "black",
+            priceColor: "#e60076",
+          };
+        }
+        if (item.taste === "กาแฟ") {
+          return {
+            ...item,
+            bgcolor: "#523a28",
+            nameColor: "white",
+            priceColor: "#e60076",
+          };
+        }
+        if (item.taste === "โกโก้") {
+          return {
+            ...item,
+            bgcolor: "#a47551",
+            nameColor: "white",
+            priceColor: "black",
+          };
+        }
+        if (item.taste === "ชาเขียว") {
+          return {
+            ...item,
+            bgcolor: "#8ba888",
+            nameColor: "white",
+            priceColor: "black",
+          };
+        }
+        return item;
+      });
+
+      setBadins(updatedBadins);
+    });
+  }, []);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const handleAddToCart = (item) => {
     setCart((prev) => {
-      const idx = prev.findIndex((i) => i.name === item.name);
+      const idx = prev.findIndex(
+        (i) =>
+          i.name === item.name && i.size === item.size && i.taste === item.taste
+      );
       if (idx !== -1) {
-        // Increase count
+        // Increase quantity
         return prev.map((i, j) =>
-          j === idx ? { ...i, count: (i.count || 1) + 1 } : i
+          j === idx ? { ...i, quantity: (i.quantity || 1) + 1 } : i
         );
       }
-      // Add new item with count 1
-      return [...prev, { ...item, count: 1 }];
+      // Add new item with quantity 1
+      return [...prev, { ...item, quantity: 1 }];
     });
   };
   return (
@@ -24,10 +126,7 @@ function LandingPageComponent({ cart, setCart }) {
       {/* Header */}
       <header className="bg-white shadow-md sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-          <a
-            href="/"
-            className="text-3xl font-bold text-pink-600 md:text-6xl"
-          >
+          <a href="/" className="text-3xl font-bold text-pink-600 md:text-6xl">
             Pie Badin ByDah
           </a>
           {/* Desktop Nav */}
@@ -141,56 +240,7 @@ function LandingPageComponent({ cart, setCart }) {
       <section id="products" className="py-16 max-w-6xl mx-auto px-4">
         <h3 className="text-3xl font-bold text-center mb-10 title">บดิน</h3>
         <div className="grid gap-3 grid-cols-2 md:grid-cols-3 md:gap-8">
-          {[
-            {
-              name: "บดิน ถาดใหญ่",
-              image: "pictures/เหลี่ยมใหญ่.jpg",
-              price: "180 บาท",
-            },
-            {
-              name: "บดิน ถาดกลาง",
-              image: "pictures/เหลี่ยมกลาง.jpg",
-              price: "60 บาท",
-            },
-            {
-              name: "บดิน ถาดเล็ก",
-              image: "pictures/เหลี่ยมเล็ก.jpg",
-              price: "40 บาท",
-            },
-            { name: "บดิน ถ้วย", image: "pictures/กลม.jpg", price: "20 บาท" },
-            {
-              name: "พายเรือ รสนม",
-              image: "pictures/เรือนม.jpg",
-              price: "20 บาท",
-              bgcolor: "#fffaf6",
-              nameColor: "black",
-              priceColor: "#e60076",
-            },
-            {
-              name: "พายเรือ รสกาแฟ",
-              image: "pictures/เรือกาแฟ.jpg",
-              price: "20 บาท",
-              bgcolor: "#523a28",
-              nameColor: "white",
-              priceColor: "#e60076",
-            },
-            {
-              name: "พายเรือ รสโกโก้",
-              image: "pictures/เรือโกโก้.jpg",
-              price: "20 บาท",
-              bgcolor: "#a47551",
-              nameColor: "white",
-              priceColor: "black",
-            },
-            {
-              name: "พายเรือ รสชาเขียว",
-              image: "pictures/เรือชาเขียว.jpg",
-              price: "20 บาท",
-              bgcolor: "#8ba888",
-              nameColor: "white",
-              priceColor: "black",
-            },
-          ].map((item, i) => (
+          {Badins.map((item, i) => (
             <div
               key={i}
               className="bg-white p-4 rounded-2xl shadow hover:shadow-lg transition"
@@ -205,13 +255,13 @@ function LandingPageComponent({ cart, setCart }) {
                 className="text-xl font-semibold md:text-3xl"
                 style={{ color: item.nameColor || "black" }}
               >
-                {item.name}
+                {item.name} {item.size} {item.taste}
               </p>
               <p
                 className="text-xl font-bold md:text-2xl"
                 style={{ color: item.priceColor || "#e60076" }}
               >
-                {item.price}
+                {item.price} บาท
               </p>
               <div className="flex flex-col items-center w-full md:flex-row justify-between">
                 {/* 2. Add to cart button */}

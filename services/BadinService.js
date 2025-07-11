@@ -36,7 +36,8 @@ const createOrders = async (orders) => {
   try {
     const response = await Axios.post(`${api}/createOrders`, orders);
     console.log("Order created:", response);
-    return response.data;
+    // return response.data;
+    return response;
   } catch (error) {
     console.error("Error creating order:", error);
   }
