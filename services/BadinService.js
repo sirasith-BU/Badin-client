@@ -45,10 +45,30 @@ const createOrders = async (orders) => {
 
 const getOrder = async (orderId) => {
   try {
-    const response = await Axios.get(`${api}/getOrder/${orderId}`, {});
+    const response = await Axios.get(`${api}/getOrder/${orderId}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching order:", error);
+  }
+};
+
+const getReceipt = async (orderId) => {
+  try {
+    const response = await Axios.get(`${api}/getReceipt/${orderId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching order:", error);
+  }
+};
+
+const updateOrderStatus = async (status, orderId) => {
+  try {
+    const response = await Axios.put(`${api}/updateOrderStatus/${orderId}`, {
+      status: status,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error updating status order:", error);
   }
 };
 
@@ -58,4 +78,6 @@ export {
   getAllOrderItems,
   createOrders,
   getOrder,
+  updateOrderStatus,
+  getReceipt,
 };

@@ -4,11 +4,16 @@ import {
   getAllOrders,
   getAllOrderItems,
 } from "../../../services/BadinService.js";
+import { useReactToPrint } from "react-to-print";
+import { useRef } from "react";
 
 function TestAPIComponent() {
   const [prodList, setProdList] = useState([]);
   const [orderList, setOrderList] = useState([]);
   const [orderItemsList, setOrderItemsList] = useState([]);
+
+  const contentRef = useRef(null);
+  const reactToPrintFn = useReactToPrint({ contentRef });
 
   const fetchProducts = async () => {
     const product_data = await getAllProducts();
@@ -27,6 +32,9 @@ function TestAPIComponent() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <div ref={contentRef}>TOP</div>
+      <button onClick={reactToPrintFn}>Print</button>
+      <div ref={contentRef}>Bottom</div>
       <h1>Test API Page</h1>
       <p>This is a test page.</p>
       <button

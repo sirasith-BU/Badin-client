@@ -1,4 +1,4 @@
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import "./landingpage.css";
 import { Link } from "react-router-dom";
 import { getAllProducts } from "../../../services/BadinService";
@@ -131,8 +131,11 @@ function LandingPageComponent({ cart, setCart }) {
           </a>
           {/* Desktop Nav */}
           <nav className="space-x-6 hidden md:flex">
-            <a href="#products" className="text-2xl">
+            <a href="#badins" className="text-2xl">
               บดิน
+            </a>
+            <a href="#pieBadins" className="text-2xl">
+              พายบดิน
             </a>
             <a href="#contact" className="text-2xl">
               ติดต่อ
@@ -205,12 +208,12 @@ function LandingPageComponent({ cart, setCart }) {
         {/* Mobile Menu */}
         {menuOpen && (
           <nav className="md:hidden bg-white px-4 pb-4 pt-2 shadow space-y-2 flex flex-col transition-all duration-600 text-2xl">
-            <a href="#products" onClick={() => setMenuOpen(false)}>
+            <a href="#badins" onClick={() => setMenuOpen(false)}>
               บดิน
             </a>
-            {/* <a href="#about" onClick={() => setMenuOpen(false)}>
-              เกี่ยวกับเรา
-            </a> */}
+            <a href="#pieBadins" onClick={() => setMenuOpen(false)}>
+              พายบดิน
+            </a>
             <a href="#contact" onClick={() => setMenuOpen(false)}>
               ติดต่อ
             </a>
@@ -229,18 +232,22 @@ function LandingPageComponent({ cart, setCart }) {
           </p>
         </div>
         <a
-          href="#products"
+          href="#badins"
           className="text-xl inline-block bg-pink-500 text-white px-6 py-3 rounded-full shadow hover:bg-pink-600 transition"
         >
           ดูสินค้าทั้งหมด
         </a>
       </section>
 
-      {/* Product Preview */}
-      <section id="products" className="py-16 max-w-6xl mx-auto px-4">
+      {/* All Badins */}
+      <section id="badins" className="py-8 max-w-6xl mx-auto px-4">
         <h3 className="text-3xl font-bold text-center mb-10 title">บดิน</h3>
         <div className="grid gap-3 grid-cols-2 md:grid-cols-3 md:gap-8">
-          {Badins.map((item, i) => (
+          {Badins.filter(
+            (item) =>
+              (item.name && item.name.includes("บดินถาด")) ||
+              item.name.includes("บดินถ้วย")
+          ).map((item, i) => (
             <div
               key={i}
               className="bg-white p-4 rounded-2xl shadow hover:shadow-lg transition"
@@ -256,6 +263,49 @@ function LandingPageComponent({ cart, setCart }) {
                 style={{ color: item.nameColor || "black" }}
               >
                 {item.name} {item.size} {item.taste}
+              </p>
+              <p
+                className="text-xl font-bold md:text-2xl"
+                style={{ color: item.priceColor || "#e60076" }}
+              >
+                {item.price} บาท
+              </p>
+              <div className="flex flex-col items-center w-full md:flex-row justify-between">
+                {/* 2. Add to cart button */}
+                <button
+                  className="text-xl mt-4 bg-pink-500 text-white px-4 py-2 rounded-full shadow hover:bg-pink-600 transition w-full md:w-auto"
+                  onClick={() => handleAddToCart(item)}
+                >
+                  ใส่ตะกร้า
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* All Pies */}
+      <section id="pieBadins" className="pb-8 max-w-6xl mx-auto px-4">
+        <h3 className="text-3xl font-bold text-center mb-10 title">พายบดิน</h3>
+        <div className="grid gap-3 grid-cols-2 md:grid-cols-3 md:gap-8">
+          {Badins.filter(
+            (item) => item.name && item.name.includes("พายบดิน")
+          ).map((item, i) => (
+            <div
+              key={i}
+              className="bg-white p-4 rounded-2xl shadow hover:shadow-lg transition"
+              style={{ backgroundColor: item.bgcolor || "#fce7f3" }}
+            >
+              <img
+                src={item.image}
+                alt={item.name}
+                className="w-full h-48 object-cover rounded-lg mb-4"
+              />
+              <p
+                className="text-xl font-semibold md:text-3xl"
+                style={{ color: item.nameColor || "black" }}
+              >
+                {item.name} {item.size} รส{item.taste}
               </p>
               <p
                 className="text-xl font-bold md:text-2xl"

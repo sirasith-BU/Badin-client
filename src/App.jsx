@@ -4,7 +4,7 @@ import LandingPageComponent from "./pages/customer/landingpage";
 import CartPageComponent from "./pages/customer/cartpage";
 import TestAPIComponent from "./pages/customer/test";
 import LoginAdminComponent from "./pages/admin/login";
-import DashboardAdminComponent from "./pages/admin/dashboard";
+import AdminMainPageComponent from "./pages/admin/mainpage";
 
 function App() {
   const [cart, setCart] = useState(() => {
@@ -27,7 +27,7 @@ function App() {
       />
       <Route path="/test" element={<TestAPIComponent />} />
       <Route path="/admin/login" element={<LoginAdminComponent />} />
-      <Route path="/admin" element={<DashboardAdminComponent />} />
+      <Route path="/admin" element={<AdminMainPageComponent />} />
     </Routes>
   );
 }
